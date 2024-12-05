@@ -11,27 +11,25 @@ class Message(models.Model):
 
     def save(self, *args, **kwargs):
         if self.score >= 70:
-            account_sid = 'AC7d9f2bb7122d257079b9ff8f63424d57'
-            auth_token = '58ca37aa07c77e804a6ee4ba00e8cef2'
+            account_sid = 'AC21b99e8bcef5e45fe1f0731ac932eb30'
+            auth_token = '8bf3f2d2c10d433dba45f85aee7dcf3d'
             client = Client(account_sid, auth_token)
 
             message = client.messages.create(
                 body=f"Congratulations! {self.name}, your score is {self.score}",
-                from_="+14173863503",
-                to="+639486994790",
+                from_="+15418033420",
+                to="09486994790",
             )
-
-            print(message.body)
         else:
-            account_sid = 'AC7d9f2bb7122d257079b9ff8f63424d57'
-            auth_token = '58ca37aa07c77e804a6ee4ba00e8cef2'
+            account_sid = 'AC21b99e8bcef5e45fe1f0731ac932eb30'
+            auth_token = '8bf3f2d2c10d433dba45f85aee7dcf3d'
             client = Client(account_sid, auth_token)
 
             message = client.messages.create(
                 body=f"Sorry {self.name}, your score is {self.score}. Try again",
-                from_="+14173863503",
-                to="+639486994790",
+                from_="+15418033420",
+                to="09486994790",
             )
 
-            print(message.body)
+            print(message.sid)
             return super().save(*args, **kwargs)
