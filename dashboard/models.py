@@ -1,5 +1,6 @@
 from django.db import models
-from twilio.rest import Client
+from vonage import Auth, Vonage
+from vonage_sms import SmsMessage, SmsResponse
 
 # Create your models here.
 class Message(models.Model):
@@ -10,26 +11,38 @@ class Message(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        # Vonage configuration (replace these with your actual credentials)
+        VONAGE_API_KEY = "6dff1b01"
+        VONAGE_API_SECRET = "jBYbX4omjRaaRlkl"
+        VONAGE_BRAND_NAME = "Vonage APIs"
+        TO_NUMBER = "639486994790"
+
+        # Initialize the Vonage API client
+        client = Vonage(Auth(api_key=VONAGE_API_KEY, api_secret=VONAGE_API_SECRET))
+
+        # Prepare the SMS message
         if self.score >= 70:
-            account_sid = 'AC21b99e8bcef5e45fe1f0731ac932eb30'
-            auth_token = '8bf3f2d2c10d433dba45f85aee7dcf3d'
-            client = Client(account_sid, auth_token)
-
-            message = client.messages.create(
-                body=f"Congratulations! {self.name}, your score is {self.score}",
-                from_="+15418033420",
-                to="09486994790",
-            )
+            text_message = f"Congratulations! {self.name}, your score is {self.score}"
         else:
-            account_sid = 'AC21b99e8bcef5e45fe1f0731ac932eb30'
-            auth_token = '8bf3f2d2c10d433dba45f85aee7dcf3d'
-            client = Client(account_sid, auth_token)
+            text_message = f"Sorry {self.name}, your score is {self.score}. Try again."
 
-            message = client.messages.create(
-                body=f"Sorry {self.name}, your score is {self.score}. Try again",
-                from_="+15418033420",
-                to="09486994790",
-            )
+        message = SmsMessage(
+            to=TO_NUMBER,
+            from_=VONAGE_BRAND_NAME,
+            text=text_message,
+        )
 
-            print(message.sid)
-            return super().save(*args, **kwargs)
+        # Send the SMS and handle the response
+        try:
+            response: SmsResponse = client.sms.send(message)
+            if response.messages[0].status == "0":
+                print("Message sent successfully.")
+            else:
+                print(
+                    f"Message failed with error: {response.messages[0].error_text}"
+                )
+        except Exception as e:
+            print(f"Failed to send SMS: {str(e)}")
+
+        # Save the model instance
+        return super().save(*args, **kwargs)
