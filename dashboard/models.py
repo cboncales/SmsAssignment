@@ -1,4 +1,4 @@
-from django.db import models
+from django.conf import settings 
 from vonage import Auth, Vonage
 from vonage_sms import SmsMessage, SmsResponse
 
@@ -11,14 +11,13 @@ class Message(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        # Vonage configuration (replace these with your actual credentials)
-        VONAGE_API_KEY = "6dff1b01"
-        VONAGE_API_SECRET = "jBYbX4omjRaaRlkl"
+        # Vonage configurations
         VONAGE_BRAND_NAME = "Vonage APIs"
         TO_NUMBER = "639486994790"
 
-        # Initialize the Vonage API client
-        client = Vonage(Auth(api_key=VONAGE_API_KEY, api_secret=VONAGE_API_SECRET))
+        # Initialize the Vonage client
+        client = Vonage(
+        Auth(api_key=settings.VONAGE_API_KEY, api_secret=settings.VONAGE_API_SECRET))
 
         # Prepare the SMS message
         if self.score >= 70:

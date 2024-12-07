@@ -1,0 +1,20 @@
+# Byte-compiled Python files
+__pycache__/
+*.py[cod]
+
+# Virtual environment folders
+venv/
+env/
+
+# Database files
+*.sqlite3
+
+# Secrets
+secrets.json
+
+# Django static and media files (optional)
+staticfiles/
+media/
+
+# Environment variables
+.env
