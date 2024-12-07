@@ -1,3 +1,4 @@
+from django.db import models
 from django.conf import settings 
 from vonage import Auth, Vonage
 from vonage_sms import SmsMessage, SmsResponse
