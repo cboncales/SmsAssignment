@@ -12,6 +12,8 @@ env/
 
 # Database files
 *.sqlite3
+db.sqlite3
+
 
 # Secrets
 secrets.json
