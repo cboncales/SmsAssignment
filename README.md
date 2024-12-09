@@ -5,6 +5,7 @@ This **Appointment Reminder System** is a Django-based application designed to s
 
 ## Features
 - Automatically sends appointment reminders via SMS.
+- Allows admins to cancel appointments, with an SMS notification sent to the client about the cancellation.
 - Ensures customers are notified only once for each appointment.
 - Includes a Django admin interface for managing appointments.
 
