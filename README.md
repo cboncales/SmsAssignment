@@ -60,7 +60,7 @@ Before running the application, ensure the following tools are installed:
 ## How It Works
 
 ### Admin Panel:
-1. Navigate to the Django Admin panel http://127.0.0.1:8000/admin/login/?next=/admin/
+1. Navigate to the Django Admin panel http://127.0.0.1:8000
 
 2. Log in with the superuser account.
 
