@@ -1,10 +1,16 @@
 # Byte-compiled Python files
 __pycache__/
 *.py[cod]
+*$py.class
 
 __pycache__/
 *.pyc
 
+# Ignore __pycache__ directories
+__pycache__/
+
+# Ignore migration files in the app folders (e.g., SmsProject, dashboard, etc.)
+*/migrations/*
 
 # Virtual environment folders
 venv/
@@ -13,7 +19,11 @@ env/
 # Database files
 *.sqlite3
 db.sqlite3
-
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
 
 # Secrets
 secrets.json
